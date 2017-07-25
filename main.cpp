@@ -347,7 +347,7 @@ static const string testnet_seeds[] = {"", ""};
 static const string *seeds = mainnet_seeds;
 
 extern "C" void* ThreadSeeder(void*) {
-  db.Add(CService("nebliodseed1.nebl.io", fTestNet ? 16325 : 6325), true);
+  db.Add(CService("178.62.247.189", fTestNet ? 16325 : 6325), true);
 
   do {
     for (int i=0; seeds[i] != ""; i++) {
