@@ -6,7 +6,7 @@
 #include "serialize.h"
 #include "uint256.h"
 
-#define BITCOIN_SEED_NONCE  0x0539a019ca550825ULL
+#define BITCOIN_SEED_NONCE  0x0539a019ca550825
 
 using namespace std;
 
@@ -26,9 +26,9 @@ class CNode {
 
   int GetTimeout() {
       if (you.IsTor())
-          return 120;
+          return 60;
       else
-          return 30;
+          return 10;
   }
 
   void BeginMessage(const char *pszCommand) {
@@ -80,7 +80,7 @@ class CNode {
     CAddress me(CService("0.0.0.0"));
     BeginMessage("version");
     int nBestHeight = GetRequireHeight();
-    string ver = "/neblio-seeder:1.00/";
+    string ver = "/neblio-seeder:1.0/";
     vSend << PROTOCOL_VERSION << nLocalServices << nTime << you << me << nLocalNonce << ver << nBestHeight;
     EndMessage();
   }
@@ -104,6 +104,7 @@ class CNode {
       CAddress addrFrom;
       uint64 nNonce = 1;
       vRecv >> nVersion >> you.nServices >> nTime >> addrMe;
+
       if (nVersion == 10300) nVersion = 300;
       if (nVersion >= 106 && !vRecv.empty())
         vRecv >> addrFrom >> nNonce;
@@ -136,9 +137,7 @@ class CNode {
       // printf("%s: got %i addresses\n", ToString(you).c_str(), (int)vAddrNew.size());
       int64 now = time(NULL);
       vector<CAddress>::iterator it = vAddrNew.begin();
-      if (vAddrNew.size() > 1) {
-        if (doneAfter == 0 || doneAfter > now + 1) doneAfter = now + 1;
-      }
+      if (doneAfter == 0 || doneAfter > now + 1) doneAfter = now + 1;
       while (it != vAddrNew.end()) {
         CAddress &addr = *it;
 //        printf("%s: got address %s\n", ToString(you).c_str(), addr.ToString().c_str(), (int)(vAddr->size()));
@@ -204,13 +203,9 @@ class CNode {
 public:
   CNode(const CService& ip, vector<CAddress>* vAddrIn) : you(ip), nHeaderStart(-1), nMessageStart(-1), vAddr(vAddrIn), ban(0), doneAfter(0), nVersion(0) {
     vSend.SetType(SER_NETWORK);
-    vSend.SetVersion(0);
+    vSend.SetVersion(209);
     vRecv.SetType(SER_NETWORK);
-    vRecv.SetVersion(0);
-    if (time(NULL) > 1329696000) {
-      vSend.SetVersion(209);
-      vRecv.SetVersion(209);
-    }
+    vRecv.SetVersion(209);
   }
   bool Run() {
     bool res = true;

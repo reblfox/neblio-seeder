@@ -64,3 +64,4 @@ the -p 5353 option.
 Another option is using setcap (Linux only) to give the executable permission
 to use a privileged port:
 sudo setcap 'cap_net_bind_service=+ep' ./dnsseed
+
