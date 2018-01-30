@@ -1,7 +1,7 @@
-neblio-seeder
+reblsl-seeder
 ==============
 
-neblio-seeder is a crawler for the neblio network, which exposes a list
+reblsl-seeder is a crawler for the reblsl network, which exposes a list
 of reliable nodes via a built-in DNS server.
 
 Features:

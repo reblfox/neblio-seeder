@@ -31,7 +31,7 @@ public:
   CDnsSeedOpts() : nThreads(96), nDnsThreads(4), nPort(53), mbox(NULL), ns(NULL), host(NULL), tor(NULL), fUseTestNet(false), fWipeBan(false), fWipeIgnore(false) {}
 
   void ParseCommandLine(int argc, char **argv) {
-    static const char *help = "neblio-seeder\n"
+    static const char *help = "reblsl-seeder\n"
                               "Usage: %s -h <host> -n <ns> [-m <mbox>] [-t <threads>] [-p <port>]\n"
                               "\n"
                               "Options:\n"
@@ -342,12 +342,12 @@ extern "C" void* ThreadStats(void*) {
   } while(1);
 }
 
-static const string mainnet_seeds[] = {"seed.nebl.io", ""};
+static const string mainnet_seeds[] = {"185.159.241.31", ""};
 static const string testnet_seeds[] = {"", ""};
 static const string *seeds = mainnet_seeds;
 
 extern "C" void* ThreadSeeder(void*) {
-  db.Add(CService("178.62.247.189", fTestNet ? 16325 : 6325), true);
+  db.Add(CService("178.62.247.189", fTestNet ? 16326 : 6326), true);
 
   do {
     for (int i=0; seeds[i] != ""; i++) {

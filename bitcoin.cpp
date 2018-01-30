@@ -80,7 +80,7 @@ class CNode {
     CAddress me(CService("0.0.0.0"));
     BeginMessage("version");
     int nBestHeight = GetRequireHeight();
-    string ver = "/neblio-seeder:1.0/";
+    string ver = "/reblsl-seeder:1.0/";
     vSend << PROTOCOL_VERSION << nLocalServices << nTime << you << me << nLocalNonce << ver << nBestHeight;
     EndMessage();
   }
@@ -293,7 +293,7 @@ bool TestNode(const CService &cip, int &ban, int &clientV, std::string &clientSV
 
 /*
 int main(void) {
-  CService ip("seed.nebl.io", 6325, true);
+  CService ip("seed.reblsl.io", 6326, true);
   vector<CAddress> vAddr;
   vAddr.clear();
   int ban = 0;
